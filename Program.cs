@@ -7,11 +7,11 @@
         Polaznik po2 = new Polaznik { _ime = "Neko" };
         Polaznik po3 = new Polaznik { _ime = "Trecko" };
         Diktafon d = new();
-        p._diktafons.Add(d);
 
-        p._polaznici.Add(po1);
-        p._polaznici.Add(po2);
-        p._polaznici.Add(po3);
+        //p._delegatZaGovor += po1.Slusanje;
+        p._delegatZaGovor += d.Snimanje;
+        //p._delegatZaGovor += po2.Slusanje;
+        //p._delegatZaGovor -= po3.Slusanje;
 
         p.Brbljanje("Bla bla bla truc truc");
     }
@@ -20,13 +20,14 @@
 internal class Predavac
 {
     public string _ime;
-    public List<Polaznik> _polaznici = new();
-    public List<Diktafon> _diktafons = new();
+
+    public delegate void TipDelegata(string bla);
+
+    public event TipDelegata _delegatZaGovor;
 
     public void Brbljanje(string prica)
     {
-        _polaznici.ForEach(p => p.Slusanje(prica));
-        _diktafons.ForEach(d => d.Snimanje(prica));
+        _delegatZaGovor?.Invoke(prica);
     }
 }
 
