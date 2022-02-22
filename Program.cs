@@ -8,10 +8,10 @@
         Polaznik po3 = new Polaznik { _ime = "Trecko" };
         Diktafon d = new();
 
-        //p._delegatZaGovor += po1.Slusanje;
+        p._delegatZaGovor += po1.Slusanje;
         p._delegatZaGovor += d.Snimanje;
-        //p._delegatZaGovor += po2.Slusanje;
-        //p._delegatZaGovor -= po3.Slusanje;
+        p._delegatZaGovor += po2.Slusanje;
+        p._delegatZaGovor += po3.Slusanje;
 
         p.Brbljanje("Bla bla bla truc truc");
     }
@@ -21,9 +21,7 @@ internal class Predavac
 {
     public string _ime;
 
-    public delegate void TipDelegata(string bla);
-
-    public event TipDelegata _delegatZaGovor;
+    public event Action<string> _delegatZaGovor;
 
     public void Brbljanje(string prica)
     {
